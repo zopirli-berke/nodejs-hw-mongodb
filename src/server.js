@@ -20,6 +20,13 @@ export const setupServer = () => {
   app.use(pinoHttp({ logger }));
   app.use(express.json());
 
+  app.get('/', (req, res) => {
+    res.json({
+      status: 200,
+      message: 'Welcome to the Contacts API!',
+    });
+  });
+
   app.get('/contacts', getAllContactsController);
 
   app.get('/contacts/:contactId', getContactByIdController);
