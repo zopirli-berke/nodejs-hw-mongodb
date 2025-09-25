@@ -15,3 +15,14 @@ export const createContactSchema = Joi.object({
   isFavorite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal').required(),
 });
+
+export const updateContactSchema = Joi.object({
+  name: Joi.string().min(3).max(30),
+  phoneNumber: Joi.string()
+    .pattern(/^[\d\s()+-]+$/)
+    .min(10)
+    .max(20),
+  email: Joi.string().email(),
+  isFavorite: Joi.boolean(),
+  contactType: Joi.string().valid('work', 'home', 'personal'),
+});

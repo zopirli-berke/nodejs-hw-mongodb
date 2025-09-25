@@ -2,22 +2,22 @@ import {
   getAllContacts,
   getContactById,
   createContact,
+  updateContact,
 } from '../services/contacts.js';
 import createHttpError from 'http-errors';
-import { createContactSchema } from '../validation/contacts.js';
+import {
+  createContactSchema,
+  updateContactSchema,
+} from '../validation/contacts.js';
 
 export const getAllContactsController = async (req, res, next) => {
-  try {
-    const contacts = await getAllContacts();
+  const contacts = await getAllContacts();
 
-    res.status(200).json({
-      status: 200,
-      message: 'Successfully found contacts!',
-      data: contacts,
-    });
-  } catch (error) {
-    next(error);
-  }
+  res.status(200).json({
+    status: 200,
+    message: 'Successfully found contacts!',
+    data: contacts,
+  });
 };
 
 export const getContactByIdController = async (req, res, next) => {
@@ -48,5 +48,27 @@ export const createContactController = async (req, res) => {
     status: 201,
     message: 'Successfully created a contact!',
     data: contact,
+  });
+};
+
+export const patchContactController = async (req, res, next) => {
+  const { error } = updateContactSchema.validate(req.body);
+
+  if (error) {
+    throw createHttpError(400, error.message);
+  }
+
+  const { contactId } = req.params;
+
+  const result = await updateContact(contactId, req.body);
+
+  if (!result) {
+    throw createHttpError(404, 'Contact not found');
+  }
+
+  res.json({
+    status: 200,
+    message: 'Successfully patched a contact',
+    data: result,
   });
 };
