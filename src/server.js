@@ -5,10 +5,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import logger from './config/logger.js';
 import { corsOptions } from './config/cors.js';
-import {
-  getAllContactsController,
-  getContactByIdController,
-} from './controllers/contacts.js';
+import contactsRouter from './routers/contact.js';
+import { errorHandler } from './middlewares/errorHandler.js';
+import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
@@ -27,14 +26,12 @@ export const setupServer = () => {
     });
   });
 
-  app.get('/contacts', getAllContactsController);
-
-  app.get('/contacts/:contactId', getContactByIdController);
+  app.use(contactsRouter);
 
   // ERROR HANDLING MIDDLEWARE
-  app.use((req, res) => {
-    res.status(404).json({ message: 'Not Found' });
-  });
+  app.use(notFoundHandler);
+
+  app.use(errorHandler);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
