@@ -3,20 +3,20 @@ import { ContactsCollection } from '../db/models/contacts.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
 export const getAllContacts = async ({
+  filter = {},
   page = 1,
   perPage = 10,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
-  filter = {},
 }) => {
   const skip = (page - 1) * perPage;
 
   const countPromise = ContactsCollection.countDocuments(filter);
 
   const contactsPromise = ContactsCollection.find(filter)
+    .sort({ [sortBy]: sortOrder })
     .skip(skip)
     .limit(perPage)
-    .sort({ [sortBy]: sortOrder })
     .exec();
 
   const [contactsCount, contacts] = await Promise.all([
