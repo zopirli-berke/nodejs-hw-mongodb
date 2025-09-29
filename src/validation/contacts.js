@@ -1,7 +1,7 @@
 import Joi from 'joi';
 
 export const createContactSchema = Joi.object({
-  name: Joi.string().min(3).max(30).required(),
+  name: Joi.string().min(3).max(20).required(),
   phoneNumber: Joi.string()
     .pattern(/^[\d\s()+-]+$/)
     .min(10)
@@ -17,7 +17,7 @@ export const createContactSchema = Joi.object({
 });
 
 export const updateContactSchema = Joi.object({
-  name: Joi.string().min(3).max(30),
+  name: Joi.string().min(3).max(20),
   phoneNumber: Joi.string()
     .pattern(/^[\d\s()+-]+$/)
     .min(10)

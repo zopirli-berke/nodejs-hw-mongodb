@@ -6,10 +6,6 @@ import {
   deleteContact,
 } from '../services/contacts.js';
 import createHttpError from 'http-errors';
-import {
-  createContactSchema,
-  updateContactSchema,
-} from '../validation/contacts.js';
 
 export const getAllContactsController = async (req, res, next) => {
   const contacts = await getAllContacts();
@@ -37,12 +33,6 @@ export const getContactByIdController = async (req, res, next) => {
 };
 
 export const createContactController = async (req, res) => {
-  const { error } = createContactSchema.validate(req.body);
-
-  if (error) {
-    throw createHttpError(400, error.message);
-  }
-
   const contact = await createContact(req.body);
 
   res.status(201).json({
@@ -53,12 +43,6 @@ export const createContactController = async (req, res) => {
 };
 
 export const patchContactController = async (req, res, next) => {
-  const { error } = updateContactSchema.validate(req.body);
-
-  if (error) {
-    throw createHttpError(400, error.message);
-  }
-
   const { contactId } = req.params;
 
   const result = await updateContact(contactId, req.body);
