@@ -17,6 +17,9 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    passwordChangedAt: {
+      type: Date,
+    },
   },
   { timestamps: true, versionKey: false },
 );
