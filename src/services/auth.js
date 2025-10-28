@@ -4,6 +4,9 @@ import createHttpError from 'http-errors';
 import { SessionsCollection } from '../db/models/session.js';
 import { randomBytes } from 'crypto';
 import { FIFTEEN_MINUTES, THIRTY_DAYS } from '../constants/index.js';
+import jwt from 'jsonwebtoken';
+import { sendEmail } from '../utils/sendEmail.js';
+import { env } from '../utils/env.js';
 
 const createSession = () => {
   const accessToken = randomBytes(30).toString('base64');
@@ -70,4 +73,33 @@ export const refreshUserSession = async ({ sessionId, refreshToken }) => {
 
 export const logoutUser = async (sessionId) => {
   await SessionsCollection.deleteOne({ _id: sessionId });
+};
+
+export const requestResetToken = async (email) => {
+  const user = await UsersCollection.findOne({ email });
+
+  if (!user) throw createHttpError(404, 'User not found');
+
+  const resetToken = jwt.sign({ sub: user._id, email }, env.JWT_SECRET, {
+    expiresIn: '5m',
+  });
+
+  const resetLink = `${env.APP_DOMAIN}/reset-password?token=${resetToken}`;
+
+  try {
+    await sendEmail({
+      to: email,
+      subject: 'Reset your password',
+      template: 'reset-password-email.html',
+      data: {
+        name: user.name,
+        link: resetLink,
+      },
+    });
+  } catch (error) {
+    throw createHttpError(
+      500,
+      'Failed to send the email, please try again later.',
+    );
+  }
 };
