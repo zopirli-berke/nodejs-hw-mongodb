@@ -5,9 +5,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import logger from './config/logger.js';
 import { corsOptions } from './config/cors.js';
-import contactsRouter from './routers/contact.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import router from './routers/index.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
@@ -17,6 +17,7 @@ export const setupServer = () => {
   app.use(helmet());
   app.use(cors({ corsOptions }));
   app.use(pinoHttp({ logger }));
+
   app.use(express.json());
 
   app.get('/', (req, res) => {
@@ -26,7 +27,7 @@ export const setupServer = () => {
     });
   });
 
-  app.use(contactsRouter);
+  app.use(router);
 
   // ERROR HANDLING MIDDLEWARE
   app.use(notFoundHandler);
