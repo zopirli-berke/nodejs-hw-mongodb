@@ -31,4 +31,9 @@ export const env = {
   SMTP_USER: getEnvVar('SMTP_USER'),
   SMTP_PASSWORD: getEnvVar('SMTP_PASSWORD'),
   SMTP_FROM: getEnvVar('SMTP_FROM'),
+
+  //Cloudinary
+  CLOUDINARY_NAME: getEnvVar('CLOUDINARY_NAME'),
+  CLOUDINARY_API_KEY: getEnvVar('CLOUDINARY_API_KEY'),
+  CLOUDINARY_API_SECRET: getEnvVar('CLOUDINARY_API_SECRET'),
 };

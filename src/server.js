@@ -17,6 +17,7 @@ export const setupServer = () => {
   app.use(helmet());
   app.use(cors({ corsOptions }));
   app.use(pinoHttp({ logger }));
+
   app.use(express.json());
 
   app.get('/', (req, res) => {
