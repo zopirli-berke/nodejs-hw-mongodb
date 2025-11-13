@@ -1,0 +1,63 @@
+type: object
+properties:
+  _id:
+    type: string
+    description: The unique identifier for the contact.
+    example: '60d0fe4f5311236168a109ca'
+
+  name:
+    type: string
+    description: The full name of the contact.
+    example: 'John Doe'
+
+  phoneNumber:
+    type: string
+    description: The contact's phone number.
+    example: '(123) 456-7890'
+
+  email:
+    type: string
+    description: The contact's email address.
+    example: 'john.doe@example.com'
+
+  isFavorite:
+    type: boolean
+    description: Indicates if the contact is marked as a favorite.
+    example: true
+
+  contactType:
+    type: string
+    description: The type of contact (e.g., personal, work).
+    enum:
+      - work
+      - home
+      - personal
+    example: 'personal'
+
+  userId:
+    type: string
+    description: The identifier of the user who owns the contact.
+    example: '60d0fe4f5311236168a109cb'
+
+  photo:
+    type: string
+    description: URL to the contact's photo.
+    example: 'https://example.com/photos/johndoe.jpg'
+
+  createdAt:
+    type: string
+    format: date-time
+    description: The date and time when the contact was created.
+    example: '2025-10-01T12:00:00Z'
+
+  updatedAt:
+    type: string
+    format: date-time
+    description: The date and time when the contact was last updated.
+    example: '2025-10-05T15:30:00Z'
+
+required:
+  - name
+  - phoneNumber
+  - contactType
+  - userId
