@@ -1,0 +1,27 @@
+tags:
+  - Authentication
+summary: Log in a user
+operationId: loginUser
+description: >
+  Authenticates a user and returns a token.
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  description: User login data.
+  content:
+    application/json:
+      schema:
+        $ref: '../../../components/schemas/userLoginSchema.yaml'
+responses:
+  '200':
+    description: User logged in successfully. Returns token and user data.
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/authResponseSchema.yaml'
+  '400':
+    $ref: '../../../components/responses/400-BadRequest.yaml'
+  '401':
+    description: Unauthorized. Invalid email or password.
+    $ref: '../../../components/responses/401-Unauthorized.yaml'
