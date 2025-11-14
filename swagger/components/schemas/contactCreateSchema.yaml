@@ -1,0 +1,35 @@
+type: object
+properties:
+  name:
+    type: string
+    description: The full name of the contact.
+    minLength: 3
+    maxLength: 20
+    example: 'John Doe'
+  phoneNumber:
+    type: string
+    description: The contact's phone number.
+    pattern: '^[\d\s()+-]+$'
+    minLength: 10
+    maxLength: 20
+    example: '(123) 456-7890'
+  email:
+    type: string
+    description: The contact's email address.
+    format: email
+    example: 'john.doe@example.com'
+  isFavorite:
+    type: boolean
+    description: Indicates if the contact is marked as a favorite.
+  contactType:
+    type: string
+    description: The type of contact (e.g., personal, work).
+    enum:
+      - work
+      - home
+      - personal
+    example: 'personal'
+required:
+  - name
+  - phoneNumber
+  - contactType

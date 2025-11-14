@@ -1,0 +1,17 @@
+tags:
+  - Authentication
+summary: Get current user
+operationId: getCurrentUser
+description: >
+  Retrieves the details of the currently authenticated user.
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: Successfully retrieved current user data.
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/userResponseSchema.yaml'
+  '401':
+    $ref: '../../../components/responses/401-Unauthorized.yaml'

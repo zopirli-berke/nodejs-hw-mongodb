@@ -1,0 +1,15 @@
+type: object
+properties:
+  _id:
+    type: string
+    description: Unique identifier for the user.
+    example: '64b7f0c2e1d3f2a5b6c7d8e9'
+  name:
+    type: string
+    description: User's name.
+    example: 'John Doe'
+  email:
+    type: string
+    format: email
+    description: User's email address.
+    example: 'user@example.com'

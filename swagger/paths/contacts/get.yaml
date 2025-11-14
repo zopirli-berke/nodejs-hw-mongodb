@@ -51,5 +51,7 @@ responses:
               type: integer
               example: 10
               description: Number of items per page.
+  '400':
+    $ref: '../../components/responses/400-BadRequest.yaml'
   '401':
     $ref: '../../components/responses/401-Unauthorized.yaml'

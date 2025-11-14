@@ -9,7 +9,16 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import router from './routers/index.js';
 
+import swaggerUi from 'swagger-ui-express';
+import fs from 'fs';
+import path from 'path';
+
 const PORT = Number(getEnvVar('PORT', '3000'));
+
+const swaggerDocumentPath = path.resolve(process.cwd(), 'docs', 'swagger.json');
+const swaggerDocument = JSON.parse(
+  fs.readFileSync(swaggerDocumentPath, 'utf8'),
+);
 
 export const setupServer = () => {
   const app = express();
@@ -28,6 +37,7 @@ export const setupServer = () => {
   });
 
   app.use(router);
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   // ERROR HANDLING MIDDLEWARE
   app.use(notFoundHandler);
