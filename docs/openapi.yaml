@@ -21,6 +21,9 @@ paths:
   /contacts/{contactId}:
     get:
       $ref: ../swagger/paths/contacts/{id}/get.yaml
+
+    patch:
+      $ref: ../swagger/paths/contacts/{id}/patch.yaml
   /contacts:
     get:
       $ref: ../swagger/paths/contacts/get.yaml
@@ -29,7 +32,7 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-
+      bearerFormat: JWT
   schemas:
     Contact:
       $ref: ../swagger/components/schemas/contactSchema.yaml

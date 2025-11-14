@@ -1,0 +1,35 @@
+tags:
+  - Contacts
+summary: Update an existing contact by ID
+operationId: updateContact
+description: >
+  Updates specific fields of an existing contact by its ID. Only provide the fields you want to change.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: contactId
+    required: true
+    description: The unique ID of the contact to update.
+    schema:
+      type: string
+requestBody:
+  required: true
+  description: An object containing the fields to update.
+  content:
+    application/json:
+      schema:
+        $ref: '../../../components/schemas/contactUpdateSchema.yaml'
+responses:
+  '200':
+    description: Contact updated successfully.
+    content:
+      application/json:
+        schema:
+          $ref: '../../../components/schemas/contactSchema.yaml'
+  '400':
+    $ref: '../../../components/responses/400-BadRequest.yaml'
+  '401':
+    $ref: '../../../components/responses/401-Unauthorized.yaml'
+  '404':
+    $ref: '../../../components/responses/404-NotFound.yaml'

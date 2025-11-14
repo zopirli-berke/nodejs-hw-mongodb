@@ -1,0 +1,9 @@
+description: Bad Request. The request could not be understood or was missing required parameters.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Bad Request. Please check your input parameters.'
