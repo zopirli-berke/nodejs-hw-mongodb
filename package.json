@@ -8,7 +8,7 @@
     "dev": "nodemon",
     "start": "NODE_ENV=production node src/index.js",
     "build": "npm run build-docs",
-    "build-docs": "redocly bundle --ext json -o docs/swagger.json",
+    "build-docs": "redocly bundle sample@v1 --ext json -o docs/swagger.json",
     "preview-docs": "redocly preview"
   },
   "repository": {
@@ -40,6 +40,7 @@
     "nodemon": "^3.1.10",
     "pino": "^9.9.4",
     "pino-http": "^10.5.0",
+    "swagger-ui-express": "^5.0.1",
     "validator": "^13.15.15"
   },
   "devDependencies": {
