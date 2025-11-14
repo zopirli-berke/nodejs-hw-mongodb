@@ -1,0 +1,26 @@
+tags:
+  - Contacts
+summary: Create a new contact
+operationId: createContact
+description: >
+  Creates a new contact in the contact book
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  description: The contact object to be added.
+  content:
+    application/json:
+      schema:
+        $ref: '../../components/schemas/contactCreateSchema.yaml'
+responses:
+  '201':
+    description: Contact created successfully.
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/contactSchema.yaml'
+  '400':
+    $ref: '../../components/responses/400-BadRequest.yaml'
+  '401':
+    $ref: '../../components/responses/401-Unauthorized.yaml'
